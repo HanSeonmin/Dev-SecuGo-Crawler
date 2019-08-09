@@ -9,7 +9,7 @@ class DBHelper:
         self.conn = my.connect(
                         host='localhost',
                         user='root',
-                        password='ahdrnffl*1216',
+                        password='',
                         db='TEST_Crawler',
                         charset='utf8',
                         cursorclass=my.cursors.DictCursor )
