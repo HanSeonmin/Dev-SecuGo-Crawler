@@ -9,10 +9,13 @@ import time
 import sys
 import pymysql as my
 
+from TourInfo import TourInfo
+from DB_config import DBHelper as DB
 ### load advanced data
 base_url = "http://tour.interpark.com/"
 
 keyword = "체코"
+db = DB()
 
 ### load driver
 driver = wd.Chrome(executable_path='/usr/local/bin/chromedriver')
@@ -61,3 +64,24 @@ print("t_grade:::", driver.find_element_by_css_selector('.info-section>.score>.p
 print("t_period:::", driver.find_element_by_css_selector('.period>td>strong').text)
 print("t_image:::", driver.find_element_by_id('btnThumb_3').find_element_by_css_selector('img').get_attribute('src'))
 print("t_content:::", driver.find_elements_by_css_selector('.info-list>.goods-point>.ui-con-list>li')[2].text)
+
+t_content = ""
+t_strs = driver.find_elements_by_css_selector('.info-list>.goods-point>.ui-con-list>li')
+for t_str in t_strs:
+    t_content += (t_str.text + '\n')
+
+print(t_content)
+
+t_obj = TourInfo(
+    t_title = driver.find_element_by_css_selector('.default-section>h2>strong').text,
+    t_grade = driver.find_element_by_css_selector('.info-section>.score>.point01').text,
+    t_period = driver.find_element_by_css_selector('.period>td>strong').text,
+    t_image = driver.find_element_by_id('btnThumb_3').find_element_by_css_selector('img').get_attribute('src'),
+    t_content = t_content
+)
+db.insertCrawlingData(t_obj)
+
+# 프로그램 종료
+driver.close()
+driver.quit()
+sys.exit()
