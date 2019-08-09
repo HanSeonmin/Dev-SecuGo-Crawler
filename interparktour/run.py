@@ -44,19 +44,20 @@ driver.implicitly_wait(10)
 
 ### access 3rd tour detail board
 third_tour = driver.find_elements_by_css_selector('.oTravelBox>.boxList>li')[2]
+##### pre-process link text
 print(third_tour.find_element_by_css_selector('a').get_attribute('onclick'))
 tmp_strs = third_tour.find_element_by_css_selector('a').get_attribute('onclick').split(',')
 if tmp_strs:
     third_link = tmp_strs[0].replace('searchModule.OnClickDetail(', '')[1:-1]
 print(third_link)
-# driver.find_element_by_css_selector('.oTravelBox>.boxList>li')[2].find_element_by_css_selector('img').click()
-print("CLICK THIRD DETAIL BOARD IMAGE")
+driver.get(third_link)
 
 ### implicit waits
 driver.implicitly_wait(10)
 
 ### print third detail board info
-#third_tour_info = driver.find_element_by_class_name('info-list')
-
-#print(third_tour_info.text)
-
+print("t_title:::", driver.find_element_by_css_selector('.default-section>h2>strong').text)
+print("t_grade:::", driver.find_element_by_css_selector('.info-section>.score>.point01').text)
+print("t_period:::", driver.find_element_by_css_selector('.period>td>strong').text)
+print("t_image:::", driver.find_element_by_id('btnThumb_3').find_element_by_css_selector('img').get_attribute('src'))
+print("t_content:::", driver.find_elements_by_css_selector('.info-list>.goods-point>.ui-con-list>li')[2].text)
