@@ -11,6 +11,7 @@ import pymysql as my
 
 from TourInfo import TourInfo
 from DB_config import DBHelper as DB
+
 ### load advanced data
 base_url = "http://tour.interpark.com/"
 
@@ -81,7 +82,7 @@ t_obj = TourInfo(
 )
 db.insertCrawlingData(t_obj)
 
-# 프로그램 종료
+### terminate program
 driver.close()
 driver.quit()
 sys.exit()
