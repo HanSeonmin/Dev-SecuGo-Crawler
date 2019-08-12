@@ -10,7 +10,7 @@ import sys
 import pymysql as my
 
 ### load advanced data
-base_url = "https://www.owasp.org/"
+base_url = "https://www.owasp.org/" # ???
 
 ### load driver
 driver = wd.Chrome(executable_path='/usr/local/bin/chromedriver')
@@ -20,7 +20,7 @@ driver.get(base_url)
 ### implicit waits
 driver.implicitly_wait(10)
 ### accesss 'Attacks' category
-driver.get(driver.find_element_by_id('n-Attacks').find_element_by_css_selector('a').get_attribute('href'))
+driver.get(driver.find_element_by_id('n-Vulnerabilities').find_element_by_css_selector('a').get_attribute('href'))
 
 ### implicit waits
 driver.implicitly_wait(10)
